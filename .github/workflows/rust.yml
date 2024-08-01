@@ -20,6 +20,10 @@ jobs:
           rustup toolchain install nightly --component miri
           rustup override set nightly
           cargo miri setup
+      - name: Print versions
+        run: |
+          rustc --version --verbose
+          cargo --version --verbose
       - name: Test (default) with Miri
         run: MIRIFLAGS=-Zmiri-strict-provenance cargo miri test
       - name: Test (gecko-ffi) with Miri
@@ -31,6 +35,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Print versions
+      run: |
+        rustc --version --verbose
+        cargo --version --verbose
     - name: Build
       run: cargo build --verbose
     - name: Run tests
@@ -54,6 +62,10 @@ jobs:
           profile: minimal
           components: rustfmt
           override: true
+      - name: Print versions
+        run: |
+          rustc --version --verbose
+          cargo --version --verbose
       - uses: actions-rs/cargo@v1
         with:
           command: fmt
@@ -70,6 +82,10 @@ jobs:
             profile: minimal
             components: clippy
             override: true
+      - name: Print versions
+        run: |
+          rustc --version --verbose
+          cargo --version --verbose
       - uses: actions-rs/clippy-check@v1
         env:
           PWD: ${{ env.GITHUB_WORKSPACE }}
@@ -90,6 +106,10 @@ jobs:
           profile: minimal
           components: rust-docs
           override: true
+      - name: Print versions
+        run: |
+          rustc --version --verbose
+          cargo --version --verbose
       - uses: swatinem/rust-cache@v1
       - uses: actions-rs/cargo@v1
         with:
